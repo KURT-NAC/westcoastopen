@@ -34,7 +34,6 @@
   section{padding:96px 0;border-bottom:1px solid var(--line);position:relative;}
 
   /* signature: stripe-ring divider, echoes the badge's belt-stripe band */
-  .stripe-band{height:14px;width:100%;background:repeating-linear-gradient(-45deg, var(--white) 0 8px, var(--blk) 8px 16px);opacity:.9;}
 
   header{position:sticky;top:0;z-index:50;background:rgba(20,16,16,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
   nav{display:flex;align-items:center;justify-content:space-between;padding:12px 30px;max-width:1160px;margin:0 auto;}
@@ -44,6 +43,18 @@
   .nav-links{display:flex;gap:26px;}
   .nav-links a{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--white-dim);font-family:var(--body);font-weight:500;}
   .nav-links a:hover{color:var(--sky);}
+
+  .nav-toggle{
+    display:none;background:none;border:none;cursor:pointer;padding:8px;
+    width:40px;height:40px;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  }
+  .nav-toggle span{
+    display:block;width:22px;height:2px;background:var(--white);
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   .btn{font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:12px 22px;border:2px solid transparent;cursor:pointer;border-radius:999px;}
   .btn-primary{background:var(--red);color:var(--white);transition:filter .15s,transform .15s;}
   .btn-primary:hover{filter:brightness(1.12);transform:translateY(-1px);}
@@ -53,14 +64,16 @@
   /* HERO: seal/badge centerpiece */
   .hero{
     padding:80px 0 64px;text-align:center;position:relative;overflow:hidden;
-    background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1.6px, transparent 1.8px);
-    background-size:20px 20px;
   }
-  .hero::before{
-    content:"";position:absolute;top:-20%;left:50%;transform:translateX(-50%);
-    width:900px;height:900px;border-radius:50%;
-    background:radial-gradient(circle, var(--red-glow), transparent 65%);
-    pointer-events:none;
+  .hero-video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    z-index:0;filter:grayscale(.25) brightness(.55) contrast(1.05);
+  }
+  .hero-scrim{
+    position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(circle at 50% -10%, var(--red-glow), transparent 60%),
+      linear-gradient(180deg, rgba(20,16,16,.55) 0%, rgba(20,16,16,.8) 70%, var(--blk) 100%);
   }
   .hero-inner{position:relative;z-index:2;}
   .hero-word{font-size:clamp(44px,8vw,88px);margin-top:8px;color:var(--white);}
@@ -186,37 +199,6 @@
     .champ-row{grid-template-columns:auto 1fr;row-gap:6px;}
     .champ-dojo,.champ-tag{grid-column:2;justify-self:start;}
   }
-  .champ-row-cat{grid-template-columns:auto 1fr auto;}
-  .champ-row-cat .champ-name{font-size:14px;}
-  .champ-placeholder{font-family:var(--body);font-size:13px;color:var(--white-dim);font-style:italic;white-space:nowrap;}
-  @media (max-width:640px){
-    .champ-row-cat{grid-template-columns:auto 1fr;row-gap:4px;}
-    .champ-row-cat .champ-placeholder{grid-column:2;justify-self:start;}
-  }
-
-  /* Category cards with 1st / 2nd / 3rd / 3rd place rows */
-  .discipline-block{margin-bottom:52px;}
-  .discipline-block:last-child{margin-bottom:0;}
-  .discipline-title{
-    font-family:var(--display);text-transform:uppercase;font-size:20px;letter-spacing:.02em;
-    color:var(--red);margin-bottom:18px;
-  }
-  .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
-  .category-card{border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--blk-2);}
-  .category-card-title{
-    font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--white);
-    padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(247,244,238,.03);
-  }
-  .place-row{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--line);}
-  .place-row:last-child{border-bottom:none;}
-  .place-badge{
-    width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
-    font-family:var(--mono);font-size:10px;font-weight:700;
-  }
-  .place-badge.gold{background:radial-gradient(circle at 35% 30%, #F5D869, #C9962C);color:#3A2A05;}
-  .place-badge.silver{background:radial-gradient(circle at 35% 30%, #E7EBF0, #A7B0BC);color:#2A2E33;}
-  .place-badge.bronze{background:radial-gradient(circle at 35% 30%, #D99A63, #9C6432);color:#3A2205;}
-  .place-info{font-size:12.5px;color:var(--white-dim);font-style:italic;}
 
   /* Sponsors */
   .sponsor-tier{margin-bottom:52px;}
@@ -314,7 +296,23 @@
   .foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;color:var(--white-dim);font-size:12.5px;font-family:var(--mono);flex-wrap:wrap;gap:10px;}
 
   @media (max-width:920px){
-    .nav-links{display:none;}
+    .nav-toggle{display:flex;}
+    nav > .btn-primary{display:none;}
+    .nav-links{
+      display:none;
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;gap:0;
+      background:rgba(20,16,16,.98);backdrop-filter:blur(8px);
+      border-bottom:1px solid var(--line);
+      padding:8px 20px 16px;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{
+      padding:14px 6px;font-size:14px;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links a:last-child{border-bottom:none;}
+    nav{position:relative;}
     .facts-strip{grid-template-columns:repeat(2,1fr);}
     .about-grid,.venue-grid,.register-wrap{grid-template-columns:1fr;}
     .div-categories{grid-template-columns:1fr;}
@@ -346,7 +344,7 @@
         <path d="M46 2 C58 0 65 10 61 22 C58 32 46 37 36 46 C44 36 47 28 43 20 C39 13 37 6 46 2 Z" fill="url(#clawGradB)"/>
         <path d="M74 8 C86 6 93 16 88 28 C85 37 72 42 60 52 C69 41 72 32 68 24 C64 16 63 12 74 8 Z" fill="url(#clawGradA)"/>
       </svg> Westcoast Open</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="index.html#divisions">Divisions &amp; Fees</a>
       <a href="index.html#schedule">Schedule</a>
       <a href="index.html#venue">Venue</a>
@@ -355,6 +353,7 @@
       <a href="index.html#faq">FAQ</a>
     </div>
     <a href="index.html#register" class="btn btn-primary">Register Now</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
 
@@ -901,6 +900,22 @@
 </footer>
 
 <script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
 document.querySelectorAll('.year-tab').forEach(tab=>{
     tab.addEventListener('click', ()=>{
       const year = tab.getAttribute('data-year');
