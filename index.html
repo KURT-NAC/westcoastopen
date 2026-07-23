@@ -43,6 +43,18 @@
   .nav-links{display:flex;gap:26px;}
   .nav-links a{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--white-dim);font-family:var(--body);font-weight:500;}
   .nav-links a:hover{color:var(--sky);}
+
+  .nav-toggle{
+    display:none;background:none;border:none;cursor:pointer;padding:8px;
+    width:40px;height:40px;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  }
+  .nav-toggle span{
+    display:block;width:22px;height:2px;background:var(--white);
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   .btn{font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:12px 22px;border:2px solid transparent;cursor:pointer;border-radius:999px;}
   .btn-primary{background:var(--red);color:var(--white);transition:filter .15s,transform .15s;}
   .btn-primary:hover{filter:brightness(1.12);transform:translateY(-1px);}
@@ -284,7 +296,22 @@
   .foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;color:var(--white-dim);font-size:12.5px;font-family:var(--mono);flex-wrap:wrap;gap:10px;}
 
   @media (max-width:920px){
-    .nav-links{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links{
+      display:none;
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;gap:0;
+      background:rgba(20,16,16,.98);backdrop-filter:blur(8px);
+      border-bottom:1px solid var(--line);
+      padding:8px 20px 16px;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{
+      padding:14px 6px;font-size:14px;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links a:last-child{border-bottom:none;}
+    nav{position:relative;}
     .facts-strip{grid-template-columns:repeat(2,1fr);}
     .about-grid,.venue-grid,.register-wrap{grid-template-columns:1fr;}
     .div-categories{grid-template-columns:1fr;}
@@ -316,7 +343,7 @@
         <path d="M46 2 C58 0 65 10 61 22 C58 32 46 37 36 46 C44 36 47 28 43 20 C39 13 37 6 46 2 Z" fill="url(#clawGradB)"/>
         <path d="M74 8 C86 6 93 16 88 28 C85 37 72 42 60 52 C69 41 72 32 68 24 C64 16 63 12 74 8 Z" fill="url(#clawGradA)"/>
       </svg> Westcoast Open</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#divisions">Divisions &amp; Fees</a>
       <a href="#schedule">Schedule</a>
       <a href="#venue">Venue</a>
@@ -325,6 +352,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <a href="#register" class="btn btn-primary">Register Now</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
 
@@ -583,6 +611,22 @@
     document.getElementById('cd-secs').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
   }
   tickCountdown(); setInterval(tickCountdown,1000);
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // Hero background video: respect reduced-motion, and fall back gracefully
   // to the poster image + scrim if the video can't load.
