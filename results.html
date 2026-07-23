@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results — Westcoast Open 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Titan+One&family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blk:#141010; --blk-2:#1D1717;
+    --red:#C41E2A; --red-dark:#7E1119; --red-glow:rgba(196,30,42,.28);
+    --white:#F7F4EE; --white-dim:#C9BFB4;
+    --sky:#3FA9DC;
+    --line:rgba(247,244,238,0.14); --line-strong:rgba(247,244,238,0.28);
+    --display:'Anton',sans-serif; --brush:'Permanent Marker',cursive; --chunky:'Titan One',cursive; --body:'Poppins',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--blk);color:var(--white);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
+  ::selection{background:var(--red);color:var(--white);}
+  :focus-visible{outline:2px solid var(--sky);outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 30px;}
+
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky);display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:16px;height:2px;background:var(--sky);}
+  h1,h2,h3{font-family:var(--display);text-transform:uppercase;font-weight:400;line-height:.95;letter-spacing:.01em;}
+  h2{font-size:clamp(30px,4.4vw,50px);}
+  .section-head{margin-bottom:44px;max-width:640px;}
+  .section-head p{color:var(--white-dim);margin-top:14px;font-size:16px;}
+  section{padding:96px 0;border-bottom:1px solid var(--line);position:relative;}
+
+  /* signature: stripe-ring divider, echoes the badge's belt-stripe band */
+  .stripe-band{height:14px;width:100%;background:repeating-linear-gradient(-45deg, var(--white) 0 8px, var(--blk) 8px 16px);opacity:.9;}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(20,16,16,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:12px 30px;max-width:1160px;margin:0 auto;}
+  .brand{font-family:var(--display);font-size:20px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:12px;}
+  .brand img{width:38px;height:38px;border-radius:50%;flex:none;}
+  .brand-icon{width:40px;height:34px;flex:none;}
+  .nav-links{display:flex;gap:26px;}
+  .nav-links a{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--white-dim);font-family:var(--body);font-weight:500;}
+  .nav-links a:hover{color:var(--sky);}
+  .btn{font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:12px 22px;border:2px solid transparent;cursor:pointer;border-radius:999px;}
+  .btn-primary{background:var(--red);color:var(--white);transition:filter .15s,transform .15s;}
+  .btn-primary:hover{filter:brightness(1.12);transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--line-strong);color:var(--white);background:transparent;transition:border-color .15s,color .15s;}
+  .btn-ghost:hover{border-color:var(--sky);color:var(--sky);}
+
+  /* HERO: seal/badge centerpiece */
+  .hero{
+    padding:80px 0 64px;text-align:center;position:relative;overflow:hidden;
+    background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1.6px, transparent 1.8px);
+    background-size:20px 20px;
+  }
+  .hero::before{
+    content:"";position:absolute;top:-20%;left:50%;transform:translateX(-50%);
+    width:900px;height:900px;border-radius:50%;
+    background:radial-gradient(circle, var(--red-glow), transparent 65%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .hero-word{font-size:clamp(44px,8vw,88px);margin-top:8px;color:var(--white);}
+  .hero-word .accent{color:var(--red);}
+  .hero-subtitle{
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    margin-top:12px;font-family:var(--brush);text-transform:uppercase;
+    font-size:clamp(13px,1.6vw,18px);letter-spacing:.03em;color:var(--sky);
+  }
+  .hero-subtitle::before,.hero-subtitle::after{content:"";height:1px;width:30px;background:var(--line-strong);}
+  .hero-sub{color:var(--white-dim);font-size:16px;max-width:520px;margin:18px auto 0;}
+  .hero-cta{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap;}
+
+  .countdown-row{margin-top:56px;display:flex;justify-content:center;}
+  .countdown-card{border:2px solid var(--line-strong);padding:24px 30px;background:var(--blk-2);border-radius:14px;display:inline-flex;flex-direction:column;align-items:center;}
+  .countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .countdown-grid div{text-align:center;}
+  .countdown-num{font-family:var(--mono);font-size:clamp(26px,3vw,34px);font-weight:700;color:var(--red);}
+  .countdown-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--white-dim);margin-top:4px;}
+  .countdown-venue{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--body);font-size:13px;color:var(--white-dim);text-align:center;}
+  .countdown-venue strong{color:var(--white);display:block;font-size:15px;font-weight:600;margin-bottom:2px;}
+
+  .facts-strip{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);}
+  .facts-strip div{padding:22px 30px;border-right:1px solid var(--line);text-align:center;}
+  .facts-strip div:last-child{border-right:none;}
+  .facts-strip .fk{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--white-dim);}
+  .facts-strip .fv{font-family:var(--display);font-size:19px;text-transform:uppercase;margin-top:6px;}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .about-copy p{color:var(--white-dim);margin-top:16px;font-size:16px;}
+  .corner-explainer{border:2px solid var(--line-strong);padding:0;border-radius:12px;overflow:hidden;}
+  .corner-row{display:flex;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid var(--line);}
+  .corner-row:last-child{border-bottom:none;}
+  .corner-tag{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--white);}
+  .corner-row h4{font-family:var(--display);text-transform:uppercase;font-size:16px;letter-spacing:.03em;}
+  .corner-row p{font-size:13px;color:var(--white-dim);margin-top:2px;}
+
+  .fee-table{border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;}
+  .fee-row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:22px 26px;border-bottom:1px solid var(--line);align-items:center;}
+  .fee-row:last-child{border-bottom:none;}
+  .fee-name{font-family:var(--display);text-transform:uppercase;font-size:19px;}
+  .fee-note{font-size:13px;color:var(--white-dim);margin-top:4px;max-width:440px;}
+  .fee-amt{font-family:var(--mono);font-size:24px;font-weight:700;white-space:nowrap;color:var(--red);}
+  .fee-amt small{font-size:12px;color:var(--white-dim);font-weight:400;display:block;text-align:right;}
+
+  .early-bird{margin-top:22px;border:2px solid var(--sky);background:rgba(63,169,220,.1);padding:16px 22px;display:flex;gap:14px;align-items:center;font-family:var(--body);font-size:14px;border-radius:12px;}
+  .early-bird .dot{width:8px;height:8px;background:var(--sky);flex:none;border-radius:50%;}
+
+  .div-categories{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;}
+  .div-cat{background:var(--blk-2);padding:28px;}
+  .div-cat h4{font-family:var(--display);text-transform:uppercase;font-size:22px;margin:12px 0 10px;color:var(--red);}
+  .div-cat ul{list-style:none;font-size:14px;color:var(--white-dim);}
+  .div-cat li{padding:5px 0;border-top:1px solid var(--line);}
+  .div-cat li:first-child{border-top:none;}
+
+  .calc{border:2px solid var(--red);padding:34px;background:var(--blk-2);margin-top:60px;border-radius:14px;}
+  .calc-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .field label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--white-dim);display:block;margin-bottom:10px;}
+  .stepper{display:flex;align-items:center;border:1px solid var(--line-strong);width:fit-content;border-radius:999px;overflow:hidden;}
+  .stepper button{background:none;border:none;color:var(--white);font-family:var(--mono);font-size:16px;width:40px;height:40px;cursor:pointer;}
+  .stepper button:hover{background:rgba(247,244,238,.08);}
+  .stepper span{font-family:var(--mono);font-size:16px;min-width:44px;text-align:center;display:inline-block;}
+  .toggle-row{display:flex;align-items:center;gap:12px;height:40px;}
+  .toggle-row input{width:18px;height:18px;accent-color:var(--red);}
+  .toggle-row span{font-size:14px;color:var(--white-dim);}
+  .calc-total{margin-top:30px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .calc-total .label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--white-dim);}
+  .calc-total .amt{font-family:var(--display);font-size:40px;text-transform:uppercase;color:var(--red);}
+  .calc-breakdown{font-family:var(--mono);font-size:12px;color:var(--white-dim);margin-top:6px;}
+
+  .timeline{border-left:2px solid var(--red);margin-left:8px;}
+  .tl-item{position:relative;padding:0 0 40px 34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:"";position:absolute;left:-7px;top:2px;width:12px;height:12px;background:var(--blk);border:2px solid var(--red);border-radius:50%;}
+  .tl-time{font-family:var(--mono);font-size:13px;color:var(--red);letter-spacing:.06em;}
+  .tl-item h4{font-family:var(--display);text-transform:uppercase;font-size:20px;margin-top:6px;}
+  .tl-item p{font-size:14px;color:var(--white-dim);margin-top:4px;max-width:520px;}
+  .tl-note{margin-top:36px;font-family:var(--body);font-size:13px;color:var(--white-dim);border-left:2px solid var(--line-strong);padding-left:14px;}
+
+  .venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .venue-copy .addr{font-family:var(--body);font-weight:600;font-size:16px;margin-top:18px;line-height:1.7;}
+  .venue-list{margin-top:26px;}
+  .venue-list div{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:14px;color:var(--white-dim);}
+  .venue-list div:first-child{border-top:none;}
+  .venue-list b{color:var(--white);font-weight:600;min-width:110px;flex:none;}
+  .map-frame{border:2px solid var(--line-strong);aspect-ratio:4/3.4;background:var(--blk-2);overflow:hidden;border-radius:12px;}
+  .map-frame iframe{width:100%;height:100%;border:0;filter:grayscale(.6) contrast(1.1) sepia(.15) hue-rotate(-20deg);}
+
+  /* Past Champions */
+  .year-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px;}
+  .year-tab{
+    font-family:var(--mono);font-size:13px;letter-spacing:.05em;
+    padding:10px 20px;border-radius:999px;border:2px solid var(--line-strong);
+    background:transparent;color:var(--white-dim);cursor:pointer;transition:all .15s ease;
+  }
+  .year-tab:hover{border-color:var(--sky);color:var(--white);}
+  .year-tab.active{background:var(--red);border-color:var(--red);color:var(--white);}
+  .champions-panel{display:none;}
+  .champions-panel.active{display:block;}
+  .champ-group{border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;margin-bottom:22px;}
+  .champ-group-title{
+    font-family:var(--display);text-transform:uppercase;font-size:17px;letter-spacing:.02em;
+    background:var(--blk-2);padding:14px 22px;border-bottom:1px solid var(--line);color:var(--red);
+  }
+  .champ-row{
+    display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;
+    padding:16px 22px;border-bottom:1px solid var(--line);
+  }
+  .champ-row:last-child{border-bottom:none;}
+  .champ-medal{
+    width:30px;height:30px;border-radius:50%;flex:none;
+    background:radial-gradient(circle at 35% 30%, #F5D869, #C9962C);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:12px;font-weight:700;color:#3A2A05;
+  }
+  .champ-name{font-family:var(--body);font-weight:600;font-size:15px;color:var(--white);}
+  .champ-dojo{font-family:var(--body);font-size:13px;color:var(--white-dim);}
+  .champ-tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--sky);border:1px solid var(--sky);border-radius:999px;padding:3px 10px;white-space:nowrap;justify-self:end;
+  }
+  @media (max-width:640px){
+    .champ-row{grid-template-columns:auto 1fr;row-gap:6px;}
+    .champ-dojo,.champ-tag{grid-column:2;justify-self:start;}
+  }
+  .champ-row-cat{grid-template-columns:auto 1fr auto;}
+  .champ-row-cat .champ-name{font-size:14px;}
+  .champ-placeholder{font-family:var(--body);font-size:13px;color:var(--white-dim);font-style:italic;white-space:nowrap;}
+  @media (max-width:640px){
+    .champ-row-cat{grid-template-columns:auto 1fr;row-gap:4px;}
+    .champ-row-cat .champ-placeholder{grid-column:2;justify-self:start;}
+  }
+
+  /* Category cards with 1st / 2nd / 3rd / 3rd place rows */
+  .discipline-block{margin-bottom:52px;}
+  .discipline-block:last-child{margin-bottom:0;}
+  .discipline-title{
+    font-family:var(--display);text-transform:uppercase;font-size:20px;letter-spacing:.02em;
+    color:var(--red);margin-bottom:18px;
+  }
+  .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+  .category-card{border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--blk-2);}
+  .category-card-title{
+    font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--white);
+    padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(247,244,238,.03);
+  }
+  .place-row{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--line);}
+  .place-row:last-child{border-bottom:none;}
+  .place-badge{
+    width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:10px;font-weight:700;
+  }
+  .place-badge.gold{background:radial-gradient(circle at 35% 30%, #F5D869, #C9962C);color:#3A2A05;}
+  .place-badge.silver{background:radial-gradient(circle at 35% 30%, #E7EBF0, #A7B0BC);color:#2A2E33;}
+  .place-badge.bronze{background:radial-gradient(circle at 35% 30%, #D99A63, #9C6432);color:#3A2205;}
+  .place-info{font-size:12.5px;color:var(--white-dim);font-style:italic;}
+
+  /* Sponsors */
+  .sponsor-tier{margin-bottom:52px;}
+  .sponsor-tier:last-child{margin-bottom:0;}
+  .sponsor-tier-label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--white-dim);
+    display:flex;align-items:center;gap:14px;margin-bottom:20px;
+  }
+  .sponsor-tier-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .presenting-card{
+    border:2px solid var(--red);border-radius:14px;background:var(--blk-2);
+    padding:32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  }
+  .sponsor-mark{
+    width:64px;height:64px;border-radius:14px;flex:none;
+    background:linear-gradient(135deg,var(--red),var(--sky));
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);color:var(--white);font-size:22px;letter-spacing:.02em;
+  }
+  .presenting-card .sponsor-mark{width:80px;height:80px;font-size:28px;}
+  .presenting-info h4{font-family:var(--display);text-transform:uppercase;font-size:24px;letter-spacing:.02em;}
+  .presenting-info p{font-family:var(--mono);font-size:12px;color:var(--sky);letter-spacing:.06em;text-transform:uppercase;margin-top:4px;}
+
+  .sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .sponsor-grid.tier-community{grid-template-columns:repeat(4,1fr);}
+  .sponsor-card{
+    border:1px solid var(--line-strong);border-radius:12px;padding:22px 18px;
+    display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;
+    background:var(--blk-2);filter:grayscale(1);opacity:.75;
+    transition:filter .2s ease, opacity .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .sponsor-card:hover{filter:grayscale(0);opacity:1;transform:translateY(-2px);border-color:var(--line-strong);}
+  .sponsor-card .sponsor-mark{width:48px;height:48px;font-size:16px;border-radius:10px;}
+  .sponsor-name{font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--white);}
+  .tier-community .sponsor-card{padding:16px 10px;gap:8px;}
+  .tier-community .sponsor-mark{width:38px;height:38px;font-size:13px;}
+  .tier-community .sponsor-name{font-size:12px;}
+
+  .sponsor-cta{
+    margin-top:56px;border:1px dashed var(--line-strong);border-radius:12px;
+    padding:26px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  .sponsor-cta p{color:var(--white-dim);font-size:14.5px;max-width:420px;}
+
+  @media (max-width:920px){
+    .sponsor-grid{grid-template-columns:repeat(2,1fr);}
+    .sponsor-grid.tier-community{grid-template-columns:repeat(3,1fr);}
+  }
+  @media (max-width:640px){
+    .sponsor-grid,.sponsor-grid.tier-community{grid-template-columns:repeat(2,1fr);}
+    .presenting-card{flex-direction:column;text-align:center;}
+  }
+
+  .register-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;}
+  form{display:flex;flex-direction:column;gap:20px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .field-input label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--white-dim);display:block;margin-bottom:8px;}
+  input[type=text],input[type=email],input[type=tel],input[type=date],select{width:100%;background:var(--blk-2);border:1px solid var(--line-strong);color:var(--white);padding:12px 14px;font-family:var(--body);font-size:14px;border-radius:8px;}
+  input:focus,select:focus{border-color:var(--sky);}
+  fieldset{border:1px solid var(--line-strong);padding:18px;border-radius:10px;}
+  legend{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--white-dim);padding:0 8px;}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .check-item{display:flex;align-items:center;gap:10px;font-size:14px;}
+  .check-item input{width:16px;height:16px;accent-color:var(--red);}
+  .waiver{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--white-dim);}
+  .waiver input{margin-top:3px;width:16px;height:16px;flex:none;accent-color:var(--sky);}
+  .submit-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  #regTotal{font-family:var(--mono);color:var(--white-dim);font-size:13px;}
+  #regTotal strong{color:var(--red);font-size:16px;}
+  .confirm-panel{display:none;border:2px solid var(--sky);background:rgba(63,169,220,.1);padding:24px;font-family:var(--body);font-size:14px;line-height:1.7;border-radius:12px;}
+  .confirm-panel.show{display:block;}
+  .confirm-panel strong{display:block;font-family:var(--display);font-size:19px;text-transform:uppercase;margin-bottom:10px;color:var(--sky);}
+  .rules-card{border:2px solid var(--line-strong);padding:28px;height:fit-content;border-radius:12px;}
+  .rules-card h4{font-family:var(--display);text-transform:uppercase;font-size:17px;margin-bottom:16px;}
+  .rules-card ul{list-style:none;}
+  .rules-card li{padding:12px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--white-dim);display:flex;gap:10px;}
+  .rules-card li:first-child{border-top:none;}
+  .rules-card li::before{content:"—";color:var(--red);flex:none;}
+
+  .faq-item{border-top:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;color:var(--white);padding:22px 4px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--display);font-size:18px;text-transform:uppercase;}
+  .faq-q span.ind{font-family:var(--mono);color:var(--red);font-size:20px;transition:transform .2s;flex:none;margin-left:20px;}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{padding:0 4px 22px;color:var(--white-dim);font-size:14.5px;max-width:640px;}
+  .faq-item.open .ind{transform:rotate(45deg);}
+
+  footer{padding:60px 0 40px;background:var(--blk-2);}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:50px;}
+  .foot-brand .brand{margin-bottom:14px;}
+  .foot-brand p{color:var(--white-dim);font-size:14px;max-width:320px;}
+  .foot-col h5{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--white-dim);margin-bottom:14px;}
+  .foot-col a,.foot-col p{display:block;font-size:14px;color:var(--white);padding:5px 0;}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;color:var(--white-dim);font-size:12.5px;font-family:var(--mono);flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:920px){
+    .nav-links{display:none;}
+    .facts-strip{grid-template-columns:repeat(2,1fr);}
+    .about-grid,.venue-grid,.register-wrap{grid-template-columns:1fr;}
+    .div-categories{grid-template-columns:1fr;}
+    .calc-fields{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .countdown-grid{gap:12px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="brand"><svg class="brand-icon" viewBox="0 0 100 84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="clawGradA" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E23A44"/>
+            <stop offset="45%" stop-color="#C41E2A"/>
+            <stop offset="100%" stop-color="#3FA9DC"/>
+          </linearGradient>
+          <linearGradient id="clawGradB" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E85560"/>
+            <stop offset="45%" stop-color="#C41E2A"/>
+            <stop offset="100%" stop-color="#2C7CA3"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 6 C30 4 36 12 33 22 C31 30 22 34 14 40 C20 32 22 26 19 20 C16 14 14 9 20 6 Z" fill="url(#clawGradA)"/>
+        <path d="M46 2 C58 0 65 10 61 22 C58 32 46 37 36 46 C44 36 47 28 43 20 C39 13 37 6 46 2 Z" fill="url(#clawGradB)"/>
+        <path d="M74 8 C86 6 93 16 88 28 C85 37 72 42 60 52 C69 41 72 32 68 24 C64 16 63 12 74 8 Z" fill="url(#clawGradA)"/>
+      </svg> Westcoast Open</a>
+    <div class="nav-links">
+      <a href="index.html#divisions">Divisions &amp; Fees</a>
+      <a href="index.html#schedule">Schedule</a>
+      <a href="index.html#venue">Venue</a>
+      <a href="results.html" style="color:var(--sky);">Results</a>
+      <a href="index.html#sponsors">Sponsors</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <a href="index.html#register" class="btn btn-primary">Register Now</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div style="height:36px;"></div>
+  <section id="results">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Hall of Fame</div>
+        <h2>Results</h2>
+        <p>Full results and division winners from previous Westcoast Open tournaments. Select a year to see who took the mat.</p>
+      </div>
+
+      <div class="year-tabs" role="tablist">
+        <button class="year-tab active" data-year="2025" role="tab" aria-selected="true">2025</button>
+        <button class="year-tab" data-year="2024" role="tab" aria-selected="false">2024</button>
+        <button class="year-tab" data-year="2023" role="tab" aria-selected="false">2023</button>
+      </div>
+
+      <div class="champions-panel active" data-panel="2025">
+        <div class="discipline-block">
+          <div class="discipline-title">Kata</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">Youth</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">Adult</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+        <div class="discipline-block">
+          <div class="discipline-title">Kumite</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">5 yrs and under Boys &amp; Girls</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">6 - 7 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">6 - 7 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Int./Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Int./Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+        <div class="discipline-block">
+          <div class="discipline-title">Weapons</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">Youth</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">Adult</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="champions-panel" data-panel="2024">
+        <div class="discipline-block">
+          <div class="discipline-title">Kata</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">Youth</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">Adult</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+        <div class="discipline-block">
+          <div class="discipline-title">Kumite</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">5 yrs and under Boys &amp; Girls</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">6 - 7 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">6 - 7 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Int./Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Int./Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+        <div class="discipline-block">
+          <div class="discipline-title">Weapons</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">Youth</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">Adult</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="champions-panel" data-panel="2023">
+        <div class="discipline-block">
+          <div class="discipline-title">Kata</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">Youth</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">Adult</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+        <div class="discipline-block">
+          <div class="discipline-title">Kumite</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">5 yrs and under Boys &amp; Girls</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">6 - 7 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">6 - 7 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Int./Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Int./Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">8 - 9 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">10 -11 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Boys Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Girls Beg/Nov</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Boys Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">12 -13 yrs Girls Int/Adv</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+        <div class="discipline-block">
+          <div class="discipline-title">Weapons</div>
+          <div class="category-grid">
+          <div class="category-card">
+            <div class="category-card-title">Youth</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          <div class="category-card">
+            <div class="category-card-title">Adult</div>
+            <div class="place-row"><div class="place-badge gold">1</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge silver">2</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+            <div class="place-row"><div class="place-badge bronze">3</div><div class="place-info">Add champion — dojo</div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand"><a href="index.html" class="brand"><svg class="brand-icon" viewBox="0 0 100 84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="clawGradA" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E23A44"/>
+            <stop offset="45%" stop-color="#C41E2A"/>
+            <stop offset="100%" stop-color="#3FA9DC"/>
+          </linearGradient>
+          <linearGradient id="clawGradB" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E85560"/>
+            <stop offset="45%" stop-color="#C41E2A"/>
+            <stop offset="100%" stop-color="#2C7CA3"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 6 C30 4 36 12 33 22 C31 30 22 34 14 40 C20 32 22 26 19 20 C16 14 14 9 20 6 Z" fill="url(#clawGradA)"/>
+        <path d="M46 2 C58 0 65 10 61 22 C58 32 46 37 36 46 C44 36 47 28 43 20 C39 13 37 6 46 2 Z" fill="url(#clawGradB)"/>
+        <path d="M74 8 C86 6 93 16 88 28 C85 37 72 42 60 52 C69 41 72 32 68 24 C64 16 63 12 74 8 Z" fill="url(#clawGradA)"/>
+      </svg> Westcoast Open</a><p>An open karate championship for youth and adult competitors of every rank. Saturday, October 17, 2026 — Lakewood, Washington.</p></div>
+      <div class="foot-col"><h5>Event</h5><a href="index.html#divisions">Divisions &amp; Fees</a><a href="index.html#schedule">Schedule</a><a href="index.html#venue">Venue</a><a href="results.html">Results</a><a href="index.html#register">Register</a></div>
+      <div class="foot-col"><h5>Contact</h5><p>info@westcoastopen.example</p><p>Pierce College, Lakewood WA</p></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Westcoast Open. All rights reserved.</span><span>Two corners, one mat.</span></div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.year-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      const year = tab.getAttribute('data-year');
+      document.querySelectorAll('.year-tab').forEach(t=>{
+        t.classList.remove('active'); t.setAttribute('aria-selected','false');
+      });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      document.querySelectorAll('.champions-panel').forEach(p=>{
+        p.classList.toggle('active', p.getAttribute('data-panel') === year);
+      });
+    });
+  });
+</script>
+</body>
+</html>
