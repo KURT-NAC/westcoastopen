@@ -199,6 +199,37 @@
     .champ-row{grid-template-columns:auto 1fr;row-gap:6px;}
     .champ-dojo,.champ-tag{grid-column:2;justify-self:start;}
   }
+  .champ-row-cat{grid-template-columns:auto 1fr auto;}
+  .champ-row-cat .champ-name{font-size:14px;}
+  .champ-placeholder{font-family:var(--body);font-size:13px;color:var(--white-dim);font-style:italic;white-space:nowrap;}
+  @media (max-width:640px){
+    .champ-row-cat{grid-template-columns:auto 1fr;row-gap:4px;}
+    .champ-row-cat .champ-placeholder{grid-column:2;justify-self:start;}
+  }
+
+  /* Category cards with 1st / 2nd / 3rd / 3rd place rows */
+  .discipline-block{margin-bottom:52px;}
+  .discipline-block:last-child{margin-bottom:0;}
+  .discipline-title{
+    font-family:var(--display);text-transform:uppercase;font-size:20px;letter-spacing:.02em;
+    color:var(--red);margin-bottom:18px;
+  }
+  .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+  .category-card{border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--blk-2);}
+  .category-card-title{
+    font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--white);
+    padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(247,244,238,.03);
+  }
+  .place-row{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--line);}
+  .place-row:last-child{border-bottom:none;}
+  .place-badge{
+    width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:10px;font-weight:700;
+  }
+  .place-badge.gold{background:radial-gradient(circle at 35% 30%, #F5D869, #C9962C);color:#3A2A05;}
+  .place-badge.silver{background:radial-gradient(circle at 35% 30%, #E7EBF0, #A7B0BC);color:#2A2E33;}
+  .place-badge.bronze{background:radial-gradient(circle at 35% 30%, #D99A63, #9C6432);color:#3A2205;}
+  .place-info{font-size:12.5px;color:var(--white-dim);font-style:italic;}
 
   /* Sponsors */
   .sponsor-tier{margin-bottom:52px;}
