@@ -205,6 +205,53 @@
   .tl-note{margin-top:36px;font-family:var(--body);font-size:13px;color:var(--white-dim);border-left:2px solid var(--line-strong);padding-left:14px;}
 
   .venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .venue-sub-head{margin-bottom:44px;max-width:640px;}
+  .venue-sub-head h2{font-size:clamp(30px,4.4vw,50px);margin-top:8px;}
+  .venue-block{
+    margin-bottom:60px;padding-bottom:60px;border-bottom:1px solid var(--line);
+  }
+  .venue-block:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+  .venue-block-label{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);
+    display:flex;align-items:center;gap:14px;margin-bottom:28px;
+  }
+  .venue-block-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .venue-name{
+    font-family:var(--display);text-transform:uppercase;font-size:26px;letter-spacing:.02em;
+    color:var(--white);margin-bottom:8px;
+  }
+
+  .hotel-rate{
+    border:2px solid var(--red);border-radius:12px;padding:22px 24px;background:rgba(196,30,42,.06);
+    margin:20px 0 26px;
+  }
+  .hotel-rate-label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--white-dim);
+  }
+  .hotel-rate-price{
+    font-family:var(--display);font-size:44px;color:var(--red);line-height:1;margin:6px 0 10px;
+  }
+  .hotel-rate-price span{
+    font-family:var(--body);font-size:14px;color:var(--white-dim);font-weight:400;margin-left:8px;
+  }
+  .hotel-rate-note{
+    font-family:var(--body);font-size:13.5px;color:var(--white-dim);margin-bottom:16px;line-height:1.6;
+  }
+  .hotel-cta{display:inline-block;}
+
+  .hotel-photo{
+    aspect-ratio:4/3.4;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;
+    position:relative;background:var(--blk-2);
+  }
+  .hotel-photo img{width:100%;height:100%;object-fit:cover;}
+  .hotel-photo-fallback{
+    display:none;position:absolute;inset:0;
+    flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    color:var(--white-dim);text-align:center;padding:20px;
+  }
+  .hotel-photo-fallback > div:first-child{font-size:56px;opacity:.5;}
+  .hotel-photo-name{font-family:var(--display);text-transform:uppercase;font-size:16px;letter-spacing:.02em;color:var(--white);}
+  .hotel-photo.no-photo .hotel-photo-fallback{display:flex;}
   .venue-copy .addr{font-family:var(--body);font-weight:600;font-size:16px;margin-top:18px;line-height:1.7;}
   .venue-list{margin-top:26px;}
   .venue-list div{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:14px;color:var(--white-dim);}
@@ -602,17 +649,55 @@
   </section>
 
   <section id="venue">
-    <div class="wrap venue-grid">
-      <div class="venue-copy">
-        <div class="eyebrow">Location</div><h2>The Venue</h2>
-        <div class="addr">Pierce College<br>Health Education Center Gymnasium<br>9401 Farwest Drive SW<br>Lakewood, WA 98498</div>
-        <div class="venue-list">
-          <div><b>Parking</b>Free on-campus parking for competitors, coaches, and spectators.</div>
-          <div><b>From I-5</b>Exit 124 (Gravelly Lake Dr), head west — campus is on your right off Farwest Dr SW.</div>
-          <div><b>From SeaTac</b>Approximately 40 miles / 45 minutes south via I-5.</div>
+    <div class="wrap">
+      <div class="venue-sub-head">
+        <div class="eyebrow">Location</div>
+        <h2>The Venue &amp; Host Hotel</h2>
+      </div>
+
+      <div class="venue-block">
+        <div class="venue-block-label">Tournament Venue</div>
+        <div class="venue-grid">
+          <div class="venue-copy">
+            <h3 class="venue-name">Pierce College Health Education Center Gym</h3>
+            <div class="addr">9401 Farwest Drive SW<br>Lakewood, WA 98498</div>
+            <div class="venue-list">
+              <div><b>Parking</b>Free on-campus parking for competitors, coaches, and spectators.</div>
+              <div><b>From I-5</b>Exit 124 (Gravelly Lake Dr), head west — campus is on your right off Farwest Dr SW.</div>
+              <div><b>From SeaTac</b>Approximately 40 miles / 45 minutes south via I-5.</div>
+            </div>
+          </div>
+          <div class="map-frame"><iframe title="Map to Pierce College" loading="lazy" src="https://www.google.com/maps?q=9401+Farwest+Drive+SW,+Lakewood,+WA+98498&output=embed"></iframe></div>
         </div>
       </div>
-      <div class="map-frame"><iframe title="Map" loading="lazy" src="https://www.google.com/maps?q=9401+Farwest+Drive+SW,+Lakewood,+WA+98498&output=embed"></iframe></div>
+
+      <div class="venue-block">
+        <div class="venue-block-label">Host Hotel</div>
+        <div class="venue-grid">
+          <div class="venue-copy">
+            <h3 class="venue-name">Best Western Liberty Inn DuPont</h3>
+            <div class="addr">1400 Wilmington Drive<br>DuPont, WA 98327</div>
+            <div class="hotel-rate">
+              <div class="hotel-rate-label">Special West Coast Open Rate</div>
+              <div class="hotel-rate-price">$135<span>/ night + tax</span></div>
+              <div class="hotel-rate-note">Reserve by September 19th. Mention "West Coast Open" when booking.</div>
+              <a href="tel:12539128777" class="btn btn-primary hotel-cta">Call 253-912-8777</a>
+            </div>
+            <div class="venue-list">
+              <div><b>Included</b>Free hot breakfast daily · Indoor pool</div>
+              <div><b>Amenities</b>Free high-speed wireless internet · Free parking</div>
+              <div><b>Distance</b>Approximately 15 minutes from Pierce College via I-5</div>
+            </div>
+          </div>
+          <div class="hotel-photo">
+            <img src="https://bwlibertyinn.com/wp-content/uploads/2022/07/Exterior_Night_R.jpg" alt="Best Western Liberty Inn DuPont exterior at night" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');">
+            <div class="hotel-photo-fallback">
+              <div>🏨</div>
+              <div class="hotel-photo-name">Best Western Liberty Inn DuPont</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
